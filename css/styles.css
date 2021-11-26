@@ -120,10 +120,22 @@ li.your-active-class{
     text-align: left;
 }
 
+span.normal{
+    display:none;
+}
+
 @media only screen and (min-width: 35em){
     .landing__container {
         max-width: 50em;
         padding: 4em;
+    }
+
+    span.responsive{
+        display:none;
+    }
+
+    span.normal{
+        display:inline-block;
     }
 }
 

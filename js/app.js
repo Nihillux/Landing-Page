@@ -33,7 +33,7 @@ const navlist = document.getElementById('navbar__list');
 */
 
 const generateli = (section)=> {
-    const navelement = `<a class="menu__link">${section.dataset.nav}</a>`;
+    const navelement = `<a class="menu__link"><span class="normal">${section.dataset.nav}</span><span class="responsive">${section.dataset.nav.slice(-1)}</span></a>`;
     return navelement;
 }
 
@@ -41,9 +41,7 @@ function isInViewport(element) {
     const rect = element.getBoundingClientRect();
     return (
         rect.top >= 0 &&
-        rect.left >= 0 &&
-        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
     );
 }
 
