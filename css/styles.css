@@ -74,6 +74,10 @@ section {
     display: inline-block;
 }
 
+li.your-active-class{
+    background-color: #000;
+}
+
 .navbar__menu .menu__link {
     display: block;
     padding: 1em;
@@ -220,4 +224,19 @@ section.your-active-class .landing__container::after {
 		           translate(-1em) 
 		           rotate(-360deg);
 	}
+}
+
+.totop{
+    display: inline-block;
+    border-radius: 100%;
+    opacity: 0;
+    padding: 10px;
+    background-color: #000;
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+}
+
+.totop.visible{
+    opacity: 1;
 }
