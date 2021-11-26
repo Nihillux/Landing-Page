@@ -23,6 +23,8 @@
  * 
 */
 
+const sections = document.querySelectorAll('section');
+const navlist = document.getElementById('navbar__list');
 
 /**
  * End Global Variables
@@ -30,7 +32,20 @@
  * 
 */
 
+const generateli = (section)=> {
+    const navelement = `<a class="menu__link">${section.dataset.nav}</a>`;
+    return navelement;
+}
 
+function isInViewport(element) {
+    const rect = element.getBoundingClientRect();
+    return (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+    );
+}
 
 /**
  * End Helper Functions
@@ -40,12 +55,41 @@
 
 // build the nav
 
+sections.forEach(element => {
+    const li = document.createElement('li');
+    li.insertAdjacentHTML('beforeend', generateli(element));
+    li.addEventListener('click', (event) => {
+        event.preventDefault();
+        element.scrollIntoView({behavior: "smooth"});
+    })
+    li.classList.add(element.id);
+    navlist.appendChild(li);
+});
 
+function handleScroll() {
+    sections.forEach(element => {
+        isInViewport(element);
+        let li = document.querySelector('.' + element.id);
+        if (isInViewport(element)){            
+            li.classList.add('your-active-class');
+            element.classList.add('your-active-class');
+        }
+        else{
+            li.classList.remove('your-active-class');
+            element.classList.remove('your-active-class');
+        }
+    })
+    let totop = document.querySelector('.totop');
+    if(window.scrollY > 0){        
+        totop.classList.add('visible');
+    }
+    else{
+        totop.classList.remove('visible');
+    }
+}
 // Add class 'active' to section when near top of viewport
 
-
 // Scroll to anchor ID using scrollTO event
-
 
 /**
  * End Main Functions
@@ -53,10 +97,5 @@
  * 
 */
 
-// Build menu 
-
-// Scroll to section on link click
-
-// Set sections as active
-
-
+document.addEventListener('scroll', handleScroll);
+document.querySelector('.totop').addEventListener('click', () => {window.scrollTo({ top: 0, behavior: 'smooth' })});
