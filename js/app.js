@@ -25,6 +25,8 @@
 
 const sections = document.querySelectorAll('section');
 const navlist = document.getElementById('navbar__list');
+let timeout;
+const navmenu = document.querySelector('.navbar__menu');
 
 /**
  * End Global Variables
@@ -43,6 +45,41 @@ function isInViewport(element) {
         rect.top >= 0 &&
         rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
     );
+}
+
+function noscroll(){
+    navmenu.classList.add('barhidden');
+}
+
+function hideNavbar(){
+    navmenu.classList.remove('barhidden');
+    if(timeout)clearTimeout(timeout);
+    timeout = setTimeout(noscroll, 3000);
+}
+
+function activeSection(){
+    sections.forEach(element => {
+        isInViewport(element);
+        let li = document.querySelector('.' + element.id);
+        if (isInViewport(element)){            
+            li.classList.add('your-active-class');
+            element.classList.add('your-active-class');
+        }
+        else{
+            li.classList.remove('your-active-class');
+            element.classList.remove('your-active-class');
+        }
+    })
+}
+
+function hideTotop(){
+    let totop = document.querySelector('.totop');
+    if(window.scrollY > 0){        
+        totop.classList.add('visible');
+    }
+    else{
+        totop.classList.remove('visible');
+    }
 }
 
 /**
@@ -65,25 +102,9 @@ sections.forEach(element => {
 });
 
 function handleScroll() {
-    sections.forEach(element => {
-        isInViewport(element);
-        let li = document.querySelector('.' + element.id);
-        if (isInViewport(element)){            
-            li.classList.add('your-active-class');
-            element.classList.add('your-active-class');
-        }
-        else{
-            li.classList.remove('your-active-class');
-            element.classList.remove('your-active-class');
-        }
-    })
-    let totop = document.querySelector('.totop');
-    if(window.scrollY > 0){        
-        totop.classList.add('visible');
-    }
-    else{
-        totop.classList.remove('visible');
-    }
+    hideNavbar();
+    activeSection();
+    hideTotop();
 }
 // Add class 'active' to section when near top of viewport
 
