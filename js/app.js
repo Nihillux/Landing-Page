@@ -13,27 +13,16 @@
  * 
 */
 
-/**
- * Comments should be present at the beginning of each procedure and class.
- * Great to have comments before crucial code sections within the procedure.
-*/
-
-/**
- * Define Global Variables
- * 
-*/
+//GLOBAL VARIABLES
 
 const sections = document.querySelectorAll('section');
 const navlist = document.getElementById('navbar__list');
 let timeout;
 const navmenu = document.querySelector('.navbar__menu');
 
-/**
- * End Global Variables
- * Start Helper Functions
- * 
-*/
+//SECONDARY FUNCTIONS
 
+//inserting double span for each navigation item to display one or the other depending on the device (responsive)
 const generateli = (section)=> {
     const navelement = `<a class="menu__link"><span class="normal">${section.dataset.nav}</span><span class="responsive">${section.dataset.nav.slice(-1)}</span></a>`;
     return navelement;
@@ -51,10 +40,11 @@ function noscroll(){
     navmenu.classList.add('barhidden');
 }
 
+//nav bar starts hidden as web loads. class hidden removed and timeout is reset everytime you scroll.
 function hideNavbar(){
     navmenu.classList.remove('barhidden');
     if(timeout)clearTimeout(timeout);
-    timeout = setTimeout(noscroll, 3000);
+    timeout = setTimeout(noscroll, 5000);
 }
 
 function activeSection(){
@@ -82,14 +72,9 @@ function hideTotop(){
     }
 }
 
-/**
- * End Helper Functions
- * Begin Main Functions
- * 
-*/
+//MAIN FUNCTIONS
 
-// build the nav
-
+// The nav bar is built with the sections present in html
 sections.forEach(element => {
     const li = document.createElement('li');
     li.insertAdjacentHTML('beforeend', generateli(element));
@@ -101,20 +86,22 @@ sections.forEach(element => {
     navlist.appendChild(li);
 });
 
+/*
+Scroll will:
+- hide the navigation bar while you scroll and show it again after a 5 second timeout
+- detect and apply the appropiate class to the active section
+- hide the to top botton when you are at the top of the page
+*/
 function handleScroll() {
     hideNavbar();
     activeSection();
     hideTotop();
 }
-// Add class 'active' to section when near top of viewport
 
-// Scroll to anchor ID using scrollTO event
+//EVENTS
 
-/**
- * End Main Functions
- * Begin Events
- * 
-*/
-
+//event listener for scroll
 document.addEventListener('scroll', handleScroll);
+
+//event listener for the to top botton
 document.querySelector('.totop').addEventListener('click', () => {window.scrollTo({ top: 0, behavior: 'smooth' })});

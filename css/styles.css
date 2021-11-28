@@ -78,10 +78,6 @@ section {
     display: inline-block;
 }
 
-li.your-active-class{
-    background-color: #000;
-}
-
 .navbar__menu .menu__link {
     display: block;
     padding: 1em;
@@ -90,10 +86,16 @@ li.your-active-class{
     color: #000;
 }
 
+li.your-active-class{
+    background-color: rgb(77, 77, 77);
+    box-sizing: border-box;
+}
+
 .navbar__menu .menu__link:hover {
     background: #333;
     color: #fff;
     transition: ease 0.3s all;
+    cursor: pointer;
 }
 
 /* Header Styles */
@@ -127,20 +129,22 @@ li.your-active-class{
 /* Navbar responsive */
 span.normal{
     display:none;
+    }
+
+@media only screen and (min-width: 750px){
+    span.responsive{
+    display:none;
+    }
+
+    span.normal{
+    display:inline-block;
+    }
 }
 
 @media only screen and (min-width: 35em){
     .landing__container {
         max-width: 50em;
         padding: 4em;
-    }
-/* Navbar responsive */
-    span.responsive{
-        display:none;
-    }
-/* Navbar responsive */
-    span.normal{
-        display:inline-block;
     }
 }
 
@@ -215,7 +219,7 @@ section:nth-of-type(3n + 1) .landing__container::after {
 /* Section Active Styles */
 /* Note: your-active-class class is applied through javascript. You should update the class here and in the index.html to what you set in your javascript file.  */
 section.your-active-class {
-    background: rgb(0, 0, 0);
+    background: rgb(88, 88, 88);
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0) 100%);
 }
 
@@ -254,6 +258,12 @@ section.your-active-class .landing__container::after {
     right: 25px;
 }
 
+.totop:hover{
+    cursor: pointer;
+    transform:scale(1.1);
+    filter: drop-shadow(0px 0px 4px #fff);
+}
+
 .totop.visible{
     opacity: 1;
 }
@@ -267,4 +277,5 @@ section.your-active-class .landing__container::after {
     background-color: none;
     height: 50px;
     transition: 1s;
+    min-width: 310px;
 }
