@@ -31,8 +31,9 @@ const generateli = (section)=> {
 function isInViewport(element) {
     const rect = element.getBoundingClientRect();
     return (
-        rect.top >= 0 &&
-        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
+        //fixed function to work when section is bigger than viewport (responsive)
+        ((window.innerHeight || document.documentElement.clientHeight)/2) + window.scrollY <= element.offsetTop + rect.height &&
+        element.offsetTop <= ((window.innerHeight || document.documentElement.clientHeight)/2) + window.scrollY
     );
 }
 
@@ -102,6 +103,7 @@ function handleScroll() {
 
 //event listener for scroll
 document.addEventListener('scroll', handleScroll);
+window.onscroll=handleScroll;
 
 //event listener for the to top botton
 document.querySelector('.totop').addEventListener('click', () => {window.scrollTo({ top: 0, behavior: 'smooth' })});
